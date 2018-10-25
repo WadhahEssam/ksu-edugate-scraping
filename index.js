@@ -3,7 +3,7 @@ const fs = require('fs');
 const CREDS = require('./creds');
 
 (async () => {
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
   await page.setViewport({height: 1080, width: 1920});
   await page.goto('https://edugate.ksu.edu.sa/ksu/init');
@@ -54,12 +54,12 @@ const CREDS = require('./creds');
   });
 
 
+  // Current GPA    : ${gpa}
   const studentInformation = (`
   Student Name   : ${name}
   Phone Number   : ${phoneNumber}
   Hours taken    : ${lastHours}
   Current Points : ${lastPoints}
-  Current GPA    : ${gpa}
   ///////////////////////////////////////////////////
   `);
 
