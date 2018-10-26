@@ -54,12 +54,12 @@ const CREDS = require('./creds');
   });
 
 
-  // Current GPA    : ${gpa}
   const studentInformation = (`
   Student Name   : ${name}
   Phone Number   : ${phoneNumber}
   Hours taken    : ${lastHours}
   Current Points : ${lastPoints}
+  Current GPA    : ${gpa}
   ///////////////////////////////////////////////////
   `);
 
