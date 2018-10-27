@@ -54,6 +54,19 @@ const CREDS = require('./creds');
       return document.querySelector('#myForm\\:allTranscriptTable\\:1\\:default > div:nth-child(2) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(5)')
         .textContent;
     });
+
+    let subjects = await page.evaluate((sel) => {
+      var subjectsCount = document.querySelector('#myForm\\:allTranscriptTable\\:0\\:default > div:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(2)').children.length;
+      var subjects = [];
+      for(var i = 0; i < subjectsCount; i++) {
+        var name = document.querySelector('#myForm\\:allTranscriptTable\\:0\\:default > div:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(2)').children[i].children[0].textContent;
+        var hours = document.querySelector('#myForm\\:allTranscriptTable\\:0\\:default > div:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(2)').children[i].children[2].textContent
+        subjects.push({id: i, name: name, hours: hours, checked: true, grade: 'A+',});
+      }
+      return subjects;
+    });
+
+    console.log(subjects);
   
   
     const studentInformation = (`
@@ -72,6 +85,7 @@ const CREDS = require('./creds');
     await browser.close();
   } catch (error) {
     await browser.close();
+    console.log('error happened');
   }
 
 
