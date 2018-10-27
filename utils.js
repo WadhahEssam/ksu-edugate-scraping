@@ -65,15 +65,13 @@ module.exports = {
 
     const studentInformationJSON = {
       name: name,
-      horus: lastHours,
+      hours: lastHours,
       points: lastPoints,
       gpa: gpa
     }
   
     console.log(studentInformation);
-    fs.appendFileSync("files/studentInformation/information2.txt", studentInformation); 
     
-    // await page.screenshot({path: 'files/edugate.png'});
     await browser.close();
     return(studentInformationJSON);
   },
