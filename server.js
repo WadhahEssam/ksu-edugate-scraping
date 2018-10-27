@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const utils = require('./utils');
+const env = require('./env');
 
 console.log( );
 
 const app = express();
-const PORT = 3003;
+const PORT = env.port;
 
 app.use(cors());
 app.options('*', cors());
