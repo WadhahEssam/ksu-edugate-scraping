@@ -26,7 +26,7 @@ app.post('/getStudentInformation', async (req, res) => {
     res.json(studentInformation);
   }
   catch (err) {
-    res.send('Somthing Wroing Happened');
+    res.send('Somthing Wrong Happened');
   }
 })
 
