@@ -91,7 +91,7 @@ module.exports = {
       return(studentInformationJSON);
     } catch (error) {
       await browser.close();
-      return 'Somthing Wrong Happened';
+      return error.message;
     }
 
   },
