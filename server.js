@@ -7,10 +7,13 @@ const puppeteer = require('puppeteer');
 
 let browser = null;
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function launchBrowser() {
   browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
 }
-
 launchBrowser();
 
 const app = express();
@@ -29,11 +32,17 @@ app.get('/', (req, res) => {
 app.post('/getStudentInformation', async (req, res) => {
   console.log(req.body);
   try {
-    const openPages = await browser.pages();
-    console.log(openPages.length);
+    let openPages = await browser.pages();
+    while(openPages.length !== 1) {
+      await sleep(500);
+      openPages = await browser.pages();
+    }
+
     const page = await browser.newPage();
     const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, page);
     res.json(studentInformation);
+
+
   }
   catch (err) {
     console.log(err.message);
