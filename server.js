@@ -26,8 +26,8 @@ app.post('/getStudentInformation', async (req, res) => {
     res.json(studentInformation);
   }
   catch (err) {
-    res.send('Somthing Wrong Happened');
-  }
+    res.send('Somthing Wrong Happened '+ err.message );
+  } 
 })
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));

@@ -8,6 +8,7 @@ const CREDS = require('./creds');
     browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
     await page.setViewport({height: 1080, width: 1920});
+
     await page.goto('https://edugate.ksu.edu.sa/ksu/init');
     
     // choosing the student
@@ -26,7 +27,7 @@ const CREDS = require('./creds');
     await page.click("input[name='loginForm:password']")
     await page.keyboard.type(CREDS.password);
     await page.keyboard.press('Enter')
-  
+        
     await page.waitForNavigation({timeout: 3000});
   
     // getting the current gpa
