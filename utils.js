@@ -29,7 +29,7 @@ module.exports = {
       await page.keyboard.type(password);
       await page.keyboard.press('Enter')
     
-      await page.waitForNavigation({timeout: 4000});
+      await page.waitForNavigation({timeout: 6000});
     
       // getting the current gpa
       let name = await page.evaluate((sel) => {
