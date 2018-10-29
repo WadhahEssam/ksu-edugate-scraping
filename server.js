@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
 app.post('/getStudentInformation', async (req, res) => {
   console.log(req.body);
   try {
-    const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, browser);
+    const page = await browser.newPage();
+    const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, browser, page);
     res.json(studentInformation);
   }
   catch (err) {
