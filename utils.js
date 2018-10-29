@@ -6,7 +6,8 @@ module.exports = {
     let browser = null;
     let page = null;
     try {
-      browser = await puppeteer.launch({headless: true});
+      // arguments to support the linux server
+      browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'});
       page = await browser.newPage();
       await page.setViewport({height: 1080, width: 1920});
       await page.goto('https://edugate.ksu.edu.sa/ksu/init');
