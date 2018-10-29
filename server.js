@@ -34,7 +34,7 @@ app.post('/getStudentInformation', async (req, res) => {
   try {
     let openPages = await browser.pages();
     while(openPages.length !== 1) {
-      await sleep(500);
+      await sleep(200 * openPages.length);
       openPages = await browser.pages();
     }
 
