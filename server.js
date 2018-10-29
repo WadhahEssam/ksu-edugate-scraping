@@ -30,7 +30,7 @@ app.post('/getStudentInformation', async (req, res) => {
   console.log(req.body);
   try {
     const openPages = await browser.pages();
-    console.log(openPages);
+    console.log(openPages.length);
     const page = await browser.newPage();
     const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, page);
     res.json(studentInformation);
