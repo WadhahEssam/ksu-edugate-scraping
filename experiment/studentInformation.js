@@ -5,7 +5,7 @@ let browser = null;
 
 (async () => {
   try {
-    browser = await puppeteer.launch({headless: true});
+    browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     await page.setViewport({height: 1080, width: 1920});
 
