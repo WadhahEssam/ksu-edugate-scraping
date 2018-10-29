@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 module.exports = {
-  getStudentInformation: async function(id, password, browser, page) {
+  getStudentInformation: async function(id, password, page) {
     // let browser = null;
     // let page = null;
     try {
@@ -57,6 +57,8 @@ module.exports = {
           .textContent;
       });
     
+      await page.waitFor(4000);
+
       let subjects = await page.evaluate((sel) => {
         var subjectsCount = document.querySelector('#myForm\\:allTranscriptTable\\:0\\:default > div:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(2)').children.length;
         var subjects = [];
@@ -91,7 +93,7 @@ module.exports = {
       return(studentInformationJSON);
     } catch (error) {
       await page.close();
-      console.log(error);
+      console.log(error.message);
       return 'Somthing Wrong Happened';
     }
 

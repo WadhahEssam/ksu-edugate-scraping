@@ -8,11 +8,10 @@ const puppeteer = require('puppeteer');
 let browser = null;
 
 async function launchBrowser() {
-  browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
+  browser = await puppeteer.launch({headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox']});
 }
 
 launchBrowser();
-console.log(browser);
 
 const app = express();
 const PORT = env.port;
@@ -30,12 +29,14 @@ app.get('/', (req, res) => {
 app.post('/getStudentInformation', async (req, res) => {
   console.log(req.body);
   try {
+    const openPages = await browser.pages();
+    console.log(openPages);
     const page = await browser.newPage();
-    const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, browser, page);
+    const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, page);
     res.json(studentInformation);
   }
   catch (err) {
-    console.log(err);
+    console.log(err.message);
     res.send('Somthing Wrong Happened');
   } 
 })
