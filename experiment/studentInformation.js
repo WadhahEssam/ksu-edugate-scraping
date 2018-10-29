@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const CREDS = require('./creds');
+let browser = null;
 
 (async () => {
-  let browser = null;
   try {
     browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
@@ -80,7 +80,7 @@ const CREDS = require('./creds');
     `);
   
     console.log(studentInformation);
-    fs.appendFileSync("../files/studentInformation/information.txt", studentInformation); 
+    // fs.appendFileSync("../files/studentInformation/information.txt", studentInformation); 
   
     // await page.screenshot({path: 'files/edugate.png'});
     await browser.close();
