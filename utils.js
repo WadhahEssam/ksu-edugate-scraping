@@ -2,16 +2,16 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 module.exports = {
-  getStudentInformation: async function(id, password) {
-    let browser = null;
+  getStudentInformation: async function(id, password, browser) {
+    // let browser = null;
     let page = null;
     try {
       // arguments to support the linux server
-      browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
+      // browser = await puppeteer.launch({headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox']});
       page = await browser.newPage();
       await page.setViewport({height: 1080, width: 1920});
       await page.goto('https://edugate.ksu.edu.sa/ksu/init');
-      
+      await page.setCacheEnabled(true)
       // choosing the student
       await page.waitForSelector('tbody > tr > td > .ui-state-default > .ui-corner-all')
       await page.click('tbody > tr > td > .ui-state-default > .ui-corner-all')
@@ -87,10 +87,11 @@ module.exports = {
     
       console.log(studentInformation);
       
-      await browser.close();
+      await page.close();
       return(studentInformationJSON);
     } catch (error) {
-      await browser.close();
+      await page.close();
+      console.log(error);
       return 'Somthing Wrong Happened';
     }
 
