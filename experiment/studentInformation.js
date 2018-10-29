@@ -5,7 +5,7 @@ const CREDS = require('./creds');
 (async () => {
   let browser = null;
   try {
-    browser = await puppeteer.launch({headless: false});
+    browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     await page.setViewport({height: 1080, width: 1920});
 
