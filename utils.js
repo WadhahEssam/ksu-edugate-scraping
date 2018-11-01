@@ -3,12 +3,7 @@ const fs = require('fs');
 
 module.exports = {
   getStudentInformation: async function(id, password, page) {
-    // let browser = null;
-    // let page = null;
     try {
-      // arguments to support the linux server
-      // browser = await puppeteer.launch({headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox']});
-      // page = await browser.newPage();
       await page.setViewport({height: 1080, width: 1920});
       await page.goto('https://edugate.ksu.edu.sa/ksu/init');
       await page.setCacheEnabled(true)
