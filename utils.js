@@ -36,11 +36,6 @@ module.exports = {
         return document.querySelector('html body center div#center div#data div#left div.data_in table tbody tr td.n41 p span#studNameText').textContent;
       });
     
-      // div.data_in_2:nth-child(2) > ul:nth-child(1) > li:nth-child(3)
-      let phoneNumber = await page.evaluate((sel) => {
-        return document.querySelector('div.data_in_2:nth-child(2) > ul:nth-child(1) > li:nth-child(3)').textContent.split(':')[1].trim();
-      });
-    
       let gpa = await page.evaluate((sel) => {
         return document.querySelector('#myForm > div.data_in_2.right_dash > ul > li:nth-child(4)').textContent.split(':')[1].trim();
       });
@@ -71,7 +66,6 @@ module.exports = {
     
       const studentInformation = (`
       Student Name   : ${name}
-      Phone Number   : ${phoneNumber}
       Hours taken    : ${lastHours}
       Current Points : ${lastPoints}
       Current GPA    : ${gpa}
@@ -86,8 +80,6 @@ module.exports = {
         subjects: subjects
       }
     
-      console.log(studentInformation);
-      
       await page.close();
       return(studentInformationJSON);
     } catch (error) {

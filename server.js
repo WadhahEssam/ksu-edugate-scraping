@@ -23,7 +23,6 @@ app.use(cors());
 app.options('*', cors());
 app.use(bodyParser.json());
 
-
 app.get('/', (req, res) => {
   console.log(req);
   res.send('Hello World');
@@ -37,14 +36,10 @@ app.post('/getStudentInformation', async (req, res) => {
       await sleep(200);
       openPages = await browser.pages();
     }
-
     const page = await browser.newPage();
     const studentInformation = await utils.getStudentInformation(req.body.id, req.body.password, page);
     res.json(studentInformation);
-
-
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err.message);
     res.send('Somthing Wrong Happened');
   } 
