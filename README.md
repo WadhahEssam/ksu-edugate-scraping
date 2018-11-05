@@ -12,4 +12,4 @@ trying to find a way to get around this and deal with the university website as 
 headless browser and the [puppeteer](https://github.com/GoogleChrome/puppeteer) amazing library.
 
 ## What it does
-providing a student id and username the application can scrap the university website and get your ( gpa , points , hours ) as easy as it sounds.
+providing a student id and username the application can scrap the university website and get your ( gpa , points , hours ) and all the subjects that the student has taken in the current semester with their hours.
