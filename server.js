@@ -90,4 +90,70 @@ app.post("/getRevenueCatInformation", async (req, res) => {
   }
 });
 
+app.post("/getRevenueCatInformation2", async (req, res) => {
+  console.log(req.body);
+  try {
+    const response = {
+      generalStats: [
+        {
+          "Active Trials": "7",
+        },
+        {
+          "Active Subscriptions": "11",
+        },
+        {
+          MRR: "$78",
+        },
+        {
+          Revenue: "$98",
+        },
+        {
+          Installs: "12,773",
+        },
+        {
+          "Active Users": "15,899",
+        },
+      ],
+      transactions: [
+        {
+          userID: "j2b0oTDUZg-X721amDeoF",
+          product: "fadfadah_199_1w_3d0",
+          revenue: "Trial",
+          purchased: "28 minutes ago",
+          expiration: "in 3 days",
+          renewal: false,
+        },
+        {
+          userID: "KtXl8gxQl9-6MMPMbzkuf",
+          product: "fadfadah_199_1w_3d0",
+          revenue: "Trial",
+          purchased: "7 hours ago",
+          expiration: "in 3 days",
+          renewal: false,
+        },
+        {
+          userID: "wikLAyJcon-9eHlcbllYk",
+          product: "fadfadah_199_1w_3d0",
+          revenue: "$2.40",
+          purchased: "a day ago",
+          expiration: "in 6 days",
+          renewal: true,
+        },
+        {
+          userID: "r25JWeIGya-QIh7sSvsXz",
+          product: "fadfadah_199_1w_3d0",
+          revenue: "$0.00",
+          purchased: "a day ago",
+          expiration: "a day ago",
+          renewal: true,
+        },
+      ],
+    };
+    res.json(response);
+  } catch (err) {
+    console.log(err.message);
+    res.send("Somthing Wrong Happened");
+  }
+});
+
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
