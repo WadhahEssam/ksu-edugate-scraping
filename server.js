@@ -7,23 +7,9 @@ const env = require("./env");
 const puppeteer = require("puppeteer");
 const timeout = require("connect-timeout");
 
-let browser = null;
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-async function launchBrowser() {
-  browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--enable-blink-features=HTMLImports",
-    ],
-  });
-}
-launchBrowser();
 
 const app = express();
 const PORT = env.port;
@@ -39,14 +25,18 @@ app.get("/", (req, res) => {
 });
 
 app.post("/getStudentInformation", async (req, res) => {
-  console.log(req.body);
+  let newBrowser;
   try {
-    let openPages = await browser.pages();
-    while (openPages.length !== 1) {
-      await sleep(200);
-      openPages = await browser.pages();
-    }
-    const page = await browser.newPage();
+    newBrowser = await puppeteer.launch({
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--enable-blink-features=HTMLImports",
+      ],
+    });
+    const page = await newBrowser.newPage();
+    
     const studentInformation = await utils.getStudentInformation(
       req.body.id,
       req.body.password,
