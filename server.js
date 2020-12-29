@@ -36,7 +36,7 @@ app.post("/getStudentInformation", async (req, res) => {
       ],
     });
     const page = await newBrowser.newPage();
-    
+
     const studentInformation = await utils.getStudentInformation(
       req.body.id,
       req.body.password,
@@ -50,7 +50,7 @@ app.post("/getStudentInformation", async (req, res) => {
 });
 
 app.post("/getRevenueCatInformation", async (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   let newBrowser;
   try {
     newBrowser = await puppeteer.launch({
