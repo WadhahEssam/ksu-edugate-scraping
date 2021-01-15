@@ -149,10 +149,11 @@ module.exports = {
         waitUntil: "networkidle0",
       });
 
+      const generalStats = await getGeneralStats({ page });
       const transactionsResult = await getTransactions({ hash, page });
 
       const response = {
-        generalStats: await getGeneralStats({ page }),
+        generalStats,
         transactions: transactionsResult.transactions,
         hasNewTransactions: transactionsResult.hasNewTransactions,
       };
