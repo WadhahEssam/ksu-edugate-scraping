@@ -66,9 +66,9 @@ const getHashForThreeNextTransactions = ({ transactions, position }) => {
 };
 
 // if it returns undefined, then you don't have to do anything
-const shouldReturnTransactions = ({ transactions, hash }) => {
+const hasNewTransactions = ({ transactions, hash }) => {
   if (hash === undefined) {
-    return undefined;
+    return false;
   }
   for (let i = 0; i < transactions.length; i++) {
     const transactionHash = getHashForThreeNextTransactions({
@@ -77,11 +77,11 @@ const shouldReturnTransactions = ({ transactions, hash }) => {
     });
     if (transactionHash !== undefined) {
       if (transactionHash === hash) {
-        return transactions.slice(0, i);
+        return true;
       }
     }
   }
-  return undefined;
+  return true;
 };
 
 async function getTransactions({ hash, page }) {
@@ -116,8 +116,9 @@ async function getTransactions({ hash, page }) {
       transactions = [...transactions, ...transactionsForCurrentPage];
     }
 
-    if (shouldReturnTransactions({ transactions, hash }) !== undefined) {
-      return shouldReturnTransactions({ transactions, hash });
+    // shouldReturnTransactions({ transactions, hash }) !== undefined
+    if ( transactions.length >= 30) {
+      break;
     }
 
     await page.click(olderButton);
@@ -128,7 +129,10 @@ async function getTransactions({ hash, page }) {
     }
   }
 
-  return transactions;
+  return {
+    transactions,
+    hasNewTransactions: hasNewTransactions({ transactions, hash }),
+  };
 }
 
 module.exports = {
@@ -145,9 +149,12 @@ module.exports = {
         waitUntil: "networkidle0",
       });
 
+      const transactionsResult = await getTransactions({ hash, page });
+
       const response = {
         generalStats: await getGeneralStats({ page }),
-        transactions: await getTransactions({ hash, page }),
+        transactions: transactionsResult.transactions,
+        hasNewTransactions: transactionsResult.hasNewTransactions,
       };
 
       await page.close();
