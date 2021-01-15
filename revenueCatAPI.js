@@ -77,6 +77,9 @@ const hasNewTransactions = ({ transactions, hash }) => {
     });
     if (transactionHash !== undefined) {
       if (transactionHash === hash) {
+        if (i === 0) {
+          return false;
+        }
         return true;
       }
     }
